@@ -44,18 +44,17 @@ export default function QueryProcessor(query: string): string {
     }
   
     if (query.toLowerCase().includes("plus")) {
-      const numbers = (query.match(/\d+/g) || []).map(Number);
-      console.log("Matched numbers:", numbers); // Debugging line
-  
-      let sum = 0;
-      for (let num of numbers) {
-          sum += num;
+      const numbers = query.match(/\d+/)?.map(Number) || [];
+      if (numbers.length >= 2) {
+          const num1 = numbers[0];
+          const num2 = numbers[1];
+          return (num1 + num2).toString();
       }
-  
-      return sum.toString();
   }
   
-  if (query.toLowerCase().includes("which of the following numbers are primes")) {
+  
+  
+  if (query.includes("which of the following numbers are primes")) {
     const numbers = query.match(/\d+/g)?.map(Number) || [];
     const primes = numbers.filter((num) => {
         if (num <= 1) return false;
@@ -68,7 +67,7 @@ export default function QueryProcessor(query: string): string {
 }
 
 
-if (query.toLowerCase().includes("multiplied by")) {
+if (query.includes("multiplied by")) {
   const match = query.match(/(\d+)\s*multiplied by\s*(\d+)/i);
   if (match) {
       const num1 = parseInt(match[1], 10);
@@ -78,7 +77,7 @@ if (query.toLowerCase().includes("multiplied by")) {
 }
 
 
-if (query.toLowerCase().includes("minus")) {
+if (query.includes("minus")) {
   const match = query.match(/(\d+)\s*minus\s*(\d+)/i);
   if (match) {
       const num1 = parseInt(match[1], 10);
@@ -88,7 +87,7 @@ if (query.toLowerCase().includes("minus")) {
 }
 
 
-if (query.toLowerCase().includes("which of the following numbers is both a square and a cube")) {
+if (query.includes("which of the following numbers is both a square and a cube")) {
   const numbers = query.match(/\d+/g)?.map(Number) || [];
   const squareAndCubes = numbers.filter((num) => {
       const sixthRoot = Math.pow(num, 1 / 6);
