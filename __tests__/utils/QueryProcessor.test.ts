@@ -34,4 +34,20 @@ describe("QueryProcessor", () => {
             "Abdulwahab"
           ));
     });
+
+    test('should return 32', () => {
+        const query = "31 plus 1";
+        const response: string = QueryProcessor(query);
+        expect(response).toBe((
+            "32"
+          ));
+    });
+
+    test('should return largest', () => {
+        const query = "29, 54, 51";
+        const response: string = QueryProcessor(query);
+        expect(response).toBe((
+            "54"
+          ));
+    });
 });
